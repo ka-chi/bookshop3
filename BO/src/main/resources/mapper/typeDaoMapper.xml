@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bookshop.dao.TypeDao">
+    <select id="selectBookByType" >
+        select book_id from book_type where type_id = #{id}
+    </select>
+
+    <select id="getLevel" >
+        select level from type where typename = #{typename}
+    </select>
+
+    <select id="getChildType" resultType="com.example.bookshop.pojo.Type">
+        select t.id,t.typename,t.parent_id,t.level from type t
+        where t.parent_id in (
+            select id from type where typename = #{typename}
+            )
+    </select>
+</mapper>

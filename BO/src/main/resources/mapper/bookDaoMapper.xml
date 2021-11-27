@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bookshop.dao.BookDao">
+    <resultMap id="bookResultMap" type="com.example.bookshop.dto.BookDto">
+        <id column="id" property="id" />
+        <result column="bookname" property="bookname" />
+        <result column="author" property="author" />
+        <result column="publishing" property="publishing" />
+        <result column="price" property="price" />
+        <result column="log" property="log" />
+        <result column="shop_name" property="shopname" />
+        <result column="profile" property="profile" />
+        <result column="sale_num" property="saleNum" />
+        <result column="typename" property="typename" />
+
+    </resultMap>
+
+
+<!--    <resultMap id="typeResultMap" type="com.example.bookshop.pojo.Type">-->
+<!--        <id column="parent_id" property="parentId" jdbcType="Integer"/>-->
+<!--        <id column="typename" property="typename" jdbcType="VARCHAR"/>-->
+<!--        <id column="level" property="level" jdbcType="Integer"/>-->
+<!--    </resultMap>-->
+
+    <select id="selectTypeList" resultType="java.lang.String">
+        select t.typename from type t,book_type bt
+        where bt.type_id = t.id and bt.book_id = #{id}
+    </select>
+
+    <select id="queryByPrice" resultMap="bookResultMap">
+        select b.id ,b.bookname,s.shop_name,b.author,b.publishing,b.price,b.log,b.profile,b.inventory,b.sale_num from book b
+        join shopper s on s.id =  b.shop_id
+        where b.price between #{begin} and #{end}
+        order by b.sale_num desc
+    </select>
+
+    <select id="queryByBookname" resultMap="bookResultMap">
+        select b.id ,b.bookname,s.shop_name,b.author,b.publishing,b.price,b.log,b.profile,b.inventory,b.sale_num from book b
+        join shopper s on s.id =  b.shop_id
+        where b.bookname like concat('%',#{bookname},'%')
+        order by b.sale_num desc
+    </select>
+
+
+    <select id="queryByTypename1" resultMap="bookResultMap">
+        select  b.id,b.bookname, b.log,b.inventory,ss.shop_name, t.typename ,b.sale_num,b.publishing,b.price,b.author,b.`profile`,b.log from type t
+        join book b on t.id = b.type_id
+        join shopper ss on ss.id = b.shop_id
+        where
+                t.parent_id in
+                (select id from type where parent_id in (select id from type where  typename=#{typename}))
+        order by b.sale_num DESC
+    </select>
+
+    <select id="queryByTypename2" resultMap="bookResultMap">
+        select  b.id,b.bookname, b.log,b.inventory,ss.shop_name, t.typename ,b.sale_num,b.publishing,b.price,b.author,b.`profile`,b.log from type t
+        join book b on t.id = b.type_id
+        join shopper ss on ss.id = b.shop_id
+        where
+                t.parent_id in
+                (select id from type where  typename=#{typename})
+        order by b.sale_num DESC
+    </select>
+
+    <select id="queryByTypename3" resultMap="bookResultMap">
+        select  b.id,b.bookname, b.log,b.inventory,ss.shop_name, t.typename ,b.sale_num,b.publishing,b.price,b.author,b.`profile`,b.log from type t
+        join book b on t.id = b.type_id
+        join shopper ss on ss.id = b.shop_id
+        where t.typename = #{typename}
+        order by b.sale_num DESC
+    </select>
+
+    <select id="queryHome" resultMap="bookResultMap">
+        select b.id,b.bookname, b.log,b.inventory,ss.shop_name, t.typename ,b.sale_num,b.publishing,b.price,b.author,b.`profile`,b.log from type t
+        join book b on t.id = b.type_id
+        join shopper ss on ss.id = b.shop_id
+        order by b.sale_num DESC
+    </select>
+
+
+    <select id="queryByShopper" resultType="com.example.bookshop.vo.BookVo">
+        select b.id,b.bookname,b.author,b.publishing,b.price,b.log,b.inventory,t.typename from book b
+        join type t  on t.id = b.type_id
+        where shop_id = #{id}
+    </select>
+</mapper>

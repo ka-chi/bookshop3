@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bookshop.dao.OrderDao">
+
+    <resultMap id="OrderDto" type="com.example.bookshop.dto.OrderDto">
+        <id column="id" property="id" />
+        <result column="c_id" property="cId" />
+        <result column="shop_id" property="shopId" />
+        <result column="book_id" property="bookId" />
+        <result column="bookname" property="bookname" />
+        <result column="author" property="author" />
+        <result column="log" property="log" />
+        <result column="price" property="price" />
+        <result column="shop_name" property="shopName" />
+        <result column="address" property="address" />
+        <result column="num" property="num" />
+        <result column="order_no" property="orderNo" />
+        <result column="pay_time" property="payTime" />
+        <result column="status" property="status"></result>
+        <result column="name" property="custName"></result>
+        <result column="tel" property="tel"></result>
+        <result column="is_comment" property="isComment"></result>
+    </resultMap>
+
+    <update id="updateState" >
+        update orders set status = #{status} where order_no=#{orderNo}
+    </update>
+
+
+    <update id="updateState2" >
+        update orders set status = '4' where order_no=#{orderNo}
+    </update>
+
+
+    <select id="selectByCustomer" resultMap="OrderDto">
+        select o.is_comment,o.id,o.order_no,o.c_id,o.book_id,b.bookname,b.author,b.log,b.price,o.num,c.address,o.sum_money,o.pay_time,o.status from orders o
+        join book b on b.id=o.book_id
+        join customer c on c.id = o.c_id
+        join shopper s on s.id =  o.shop_id
+        where o.c_id = #{cid} and o.status = #{status}
+        order by o.order_no desc
+    </select>
+
+    <select id="selectByShopper" resultMap="OrderDto">
+        select o.is_comment,o.status,o.pay_time,o.address,c.tel,c.name,o.c_id,o.book_id,b.bookname,b.author,b.log,b.price,b.shop_id,s.shop_name,o.num,c.address,o.sum_money,o.order_no from orders o
+        join book b on b.id=o.book_id
+        join shopper s on s.id =  o.shop_id
+        join customer c on c.id = o.c_id
+        where o.shop_id = #{sid} and o.status = #{status}
+    </select>
+
+    <select id="getSum">
+        select sum(sum_money) from orders where c_id = #{cid} and status = '1'
+    </select>
+    <select id="selectByOrderNo" resultType="com.example.bookshop.pojo.Order" >
+        select c_id,book_id,shop_id,num,status,order_no,address,sum_money,pay_time from orders where order_no=#{orderNo} and status = '2'
+    </select>
+
+
+
+    <insert id="insertList">
+        INSERT into orders(c_id,book_id,shop_id,num,`status`,order_no,address,sum_money,pay_time)
+        values
+        <foreach collection="list" item="i" index="index" separator=",">
+        (#{i.cId},#{i.bookId},#{i.shopId},#{i.num},#{i.status},#{i.orderNo},#{i.address},#{i.sumMoney},#{i.payTime})
+        </foreach>
+    </insert>
+
+    <update id="updateAddress">
+        update  orders set address = #{address} where order_no = #{orderNo}
+    </update>
+
+
+
+
+</mapper>

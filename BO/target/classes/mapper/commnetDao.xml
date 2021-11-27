@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bookshop.dao.CommenDao">
+    <resultMap id="commentMap" type="com.example.bookshop.dto.CommentDto">
+        <id column="id" property="id" />
+        <result column="name" property="custName" />
+        <result column="book_id" property="bookId" />
+        <result column="comment" property="comment" />
+        <result column="star" property="star" />
+        <result column="c_time" property="cTime" />
+
+
+    </resultMap>
+
+    <select id="showComment" resultMap="commentMap">
+        select ct.name,c.book_id,c.comment,c.star,c.c_time from comment c
+        join customer ct on ct.id = c.c_id
+        where c.book_id = #{bookId}
+    </select>
+</mapper>

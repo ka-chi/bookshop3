@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bookshop.dao.ShopcarDao">
+    <resultMap id="shopcarDto" type="com.example.bookshop.dto.ShopcarDto">
+        <id column="id" property="id" />
+        <result column="c_id" property="cId" />
+        <result column="shop_id" property="shopId" />
+        <result column="book_id" property="bookId" />
+        <result column="bookname" property="bookname" />
+        <result column="author" property="author" />
+        <result column="log" property="log" />
+        <result column="price" property="price" />
+        <result column="shop_name" property="shopName" />
+        <result column="address" property="address" />
+        <result column="num" property="num" />
+        <result column="sum_price" property="goodTotal"></result>
+    </resultMap>
+    
+    
+    <update id="updateOne">
+        update shopcar set num = #{num} where book_id = #{bookid} and c_id = #{cid}
+    </update>
+    
+    <select id="getAll" resultMap="shopcarDto">
+        select sc.id,sc.c_id,sc.book_id,b.bookname,b.author,b.log,b.price,b.shop_id,s.shop_name,sc.num,c.address,(sc.num * b.price) as sum_price
+        from shopcar sc
+        join book b on b.id=sc.book_id
+        join shopper s on s.id =  b.shop_id
+        join customer c on c.id = sc.c_id
+        where sc.c_id = #{c_id}
+    </select> 
+</mapper>   
