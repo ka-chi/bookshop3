@@ -187,82 +187,89 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .shopCart {
   margin-bottom: 50px;
-  .table {
+}
+.shopCart .table {
     margin-top: 10px;
     position: relative;
     padding-bottom: 100px;
-    ::v-deep .el-input__inner {
+}
+.shopCart .table ::v-deep .el-input__inner {
       text-align: center;
     }
-    ::v-deep .el-input-group__append {
+.shopCart .table ::v-deep .el-input-group__append {
       padding: 0 15px;
     }
-    ::v-deep .el-input-group__prepend {
+.shopCart .table ::v-deep .el-input-group__prepend {
       padding: 0 15px;
     }
-    .shopImg {
+.shopCart .table .shopImg {
       width: 100%;
     }
-    .price,
+.shopCart .table .price,
     .shop {
       color: #000733;
     }
-    .count {
+.shopCart .table .count {
       color: #bfa548;
     }
-    ::v-deep .el-checkbox__inner {
+.shopCart .table ::v-deep .el-checkbox__inner {
       width: 20px;
       height: 20px;
       border-radius: 50%;
     }
-    ::v-deep .el-checkbox__input.is-checked .el-checkbox__inner {
+.shopCart .table ::v-deep .el-checkbox__input.is-checked .el-checkbox__inner {
       background-color: #bfa548;
       border-color: #bfa548;
     }
-    ::v-deep .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+.shopCart .table ::v-deep .el-checkbox__input.is-indeterminate .el-checkbox__inner {
       background-color: #bfa548;
       border-color: #bfa548;
     }
-    ::v-deep .el-checkbox__inner::after {
+.shopCart .table ::v-deep .el-checkbox__inner::after {
       left: 7px;
       top: 3px;
     }
-    ::v-deep .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+.shopCart .table  ::v-deep .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
       top: 7px;
     }
-    .submit {
+.shopCart .table .submit {
       position: absolute;
       right: 0;
       left: 0;
-      ::v-deep .van-submit-bar {
+}
+.shopCart .table .submit ::v-deep .van-submit-bar {
         position: absolute;
         top: 20px;
-        .van-submit-bar__bar {
+}
+.shopCart .table .submit .van-submit-bar__bar {
           background-color: #f8f8f8;
           padding: 30px 20px 30px 28px;
         }
-      }
-      .submitBar {
-        color: #757575;
-        display: flex;
-        align-items: center;
-        b {
+.shopCart .table .submit .submitBar {
+  color: #757575;
+  display: flex;
+  align-items: center;
+}
+.shopCart .table .submit .submitBar b {
           color: #bfa548;
           margin: 0 5px;
         }
 
-        span {
-          display: flex;
-          align-items: center;
-          &:first-child {
-            cursor: pointer;
-            &:hover {
-              color: #bfa548;
-            }
-            &::after {
+.shopCart .table .submit .submitBar span {
+  display: flex;
+  align-items: center;
+}
+.shopCart .table .submit .submitBar span:first-child {
+  cursor: pointer;
+}
+.shopCart .table .submit .submitBar span:hover {
+  color: #bfa548;
+}
+
+.shopCart .table .submit .submitBar span::after {
               display: inline-block;
               content: "";
               width: 1px;
@@ -270,17 +277,11 @@ export default {
               background: #ccc;
               margin: 0 10px;
             }
-          }
-        }
-      }
-      ::v-deep .van-submit-bar__price {
+.shopCart .table .submit .submitBar span ::v-deep .van-submit-bar__price {
         color: #bfa548;
       }
-      ::v-deep .van-submit-bar__text {
+.shopCart .table .submit .submitBar span ::v-deep .van-submit-bar__text {
         padding-right: 30px;
         color: #000733;
       }
-    }
-  }
-}
 </style>
