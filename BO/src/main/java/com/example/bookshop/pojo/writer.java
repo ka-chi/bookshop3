@@ -1,6 +1,7 @@
 package com.example.bookshop.pojo;
 
-public class writer {
+public class writer
+{
     int age;
-    String name;
+    String namess;
 }
