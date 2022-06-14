@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for book
 -- ----------------------------
 DROP TABLE IF EXISTS `book`;
-CREATE TABLE `books`  (
+CREATE TABLE `book`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `bookname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '书名',
   `author` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作者',
