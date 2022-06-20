@@ -12,6 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class BookShopApplication {
     public static void main(String[] args) {
         SpringApplication.run(BookShopApplication.class, args);
-
+		int a =0;
     }
 }
