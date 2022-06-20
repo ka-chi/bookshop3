@@ -10,15 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 public class BookShopApplication {
-	
     public static void main(String[] args) {
         SpringApplication.run(BookShopApplication.class, args);
-<<<<<<< Updated upstream
-		int a = 0;
-		int b = 0;
-=======
-		昨天有一头猪猪侠哦
->>>>>>> Stashed changes
-    }
 
+    }
 }
